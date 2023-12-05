@@ -4,6 +4,35 @@ Materi Mata Kuliah Pemrograman Mobile | Teknik Informatika UNISNU Jepara | Akhma
 
 ---
 
+> **Cara menggunakan modul ini:**
+>
+> 1. Login ke akun github anda.
+> 2. Star ke repository ini.
+> 3. Fork repository ini sehingga masuk ke repository di akun github masing-masing.
+> 4. Clone project dari repository github masing-masing.
+>    ```bash
+>    git clone https://github.com/namauser/flutter-basics.git
+>    ```
+> 5. Buat branch baru `dev` dan gunakan sebagai branch yang aktif.
+>
+>    ```bash
+>    git checkout -b dev
+>    ```
+>
+> 6. Mulai praktek, selesai praktek lakukan commit dengan label sesuai materi yang dikerjakan. Untuk project folder, anda bisa buat di dalam folder flutter-basics dengan nama project "project_flutter_ui"
+>
+>    ```bash
+>    git add .
+>    git commit -m "container"
+>    ```
+>
+> 7. Lakukan push ke repository github masing-masing
+>    ```bash
+>    git push -u origin dev
+>    ```
+> 8. Jika sudah selesai semua, kembali ke repository ini, kemudian masuk ke menu `issue`, tulis identitas diri (NIM, Nama) dan link repo github hasil dari fork project ini.
+> 9. Penilaian berdasarkan commit di branch `dev` pada repo akun github masing-masing.
+
 Setelah sebelumnya kita mempelajari bagaimana flutter bekerja bersama dart dalam membuat sebuah tampilan pada layar, yuk kita belajar tentang widget widget yang akan sering dipakai dalam proses development UI dalam pengembangan aplikasi.
 
 Materi yang akan dibahas pada modul ini adalah:
@@ -135,7 +164,7 @@ Parameter `floatActionButton` juga sudah disediakan oleh flutter yang fungsinya 
 
 Baca Dokumentasi Resmi:
 
-- [Dokumentasi FloatingActionButton.](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html)
+- [FloatingActionButton.](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html)
 
 ### Scaffold > drawer
 
@@ -236,6 +265,31 @@ Container
 ```
 
 Seperti contoh dibawah ini, widget container kita masukan ke dalam body milik widget scaffold. Didalamnya kita dapat memberi nilai tinggi, lebar, jarak antara border, decoration dan dia juga punya child yang hanya bisa 1 anak widget. Namun tenang saja, anaknya ini bisa diisi dengan column atau row jadi tetap didalamnya bisa berisi banyak widget. Contoh disamping ceritanya kita akan membuat wadah atau container dengan tinggi 300px, lewar selebar layar,margin dengan tepi layar itu 10px, dan mempunyai dekorasi warna grey, border radius yang melengkung dengan lengkungan 20px, lalu ada bayang2 juga.
+
+```dart
+...
+      body: Container(
+        height: 300,
+        width: double.infinity,
+        margin: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 15.0,
+              offset: Offset.zero,
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+![Gambar 4. Widget Container](img/04%20container.png)
+
+Gambar 4. Widget Container
 
 ## Text
 
