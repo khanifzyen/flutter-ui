@@ -66,13 +66,13 @@ Skema property Scaffold:
 ```
 Scaffold
 │───appBar
-|   |   leading
-|   |   title
-|   |   action
-│   body
-│   bottomNavigationBar
-|   floatingActionButton
-|   drawer
+|   |───leading
+|   |───title
+|   |───action
+│───body
+│───bottomNavigationBar
+|───floatingActionButton
+|───drawer
 ```
 
 Dibawah ini adalah contoh tampilan layar dari widget scaffold, dimana dia mempunyai appbar di paling atas, yang berwarna biru dengan title Sample Code. Lalu ada body yang berisi text dan berada di bagian tengah dengan wording ‘You have pressed the button 0 times.’ lalu ada `floatingActionButton` di pojok kanan bawah yang berisi icon add.
@@ -244,24 +244,24 @@ Widget Container ini setara dengan tag \<div>\</div> di HTML. Ini adalah wadah y
 
 ```
 Container
-|   child
-|   height
-|   width
+|───child
+|───height
+|───width
 │───margin
-|   |   EdgeInsets.all()
+|   |───EdgeInsets.all()
 │───padding
-|   |   EdgeInsets.all()
+|   |───EdgeInsets.all()
 │───alignment
-|   |   Alignment
+|   |───Alignment
 │───decoration
 |   │───BoxDecoration()
-|       │   color
-|       |   border
-|       |   borderRadius
+|       │───color
+|       |───border
+|       |───borderRadius
 │───transform
 |   │───Matrix4
-|       │   transitionValues
-|       |   rotationZ
+|       │───transitionValues
+|       |───rotationZ
 ```
 
 Seperti contoh dibawah ini, widget container kita masukan ke dalam body milik widget scaffold. Didalamnya kita dapat memberi nilai tinggi, lebar, jarak antara border, decoration dan dia juga punya child yang hanya bisa 1 anak widget. Namun tenang saja, anaknya ini bisa diisi dengan column atau row jadi tetap didalamnya bisa berisi banyak widget. Contoh disamping ceritanya kita akan membuat wadah atau container dengan tinggi 300px, lewar selebar layar,margin dengan tepi layar itu 10px, dan mempunyai dekorasi warna grey, border radius yang melengkung dengan lengkungan 20px, lalu ada bayang2 juga.
@@ -287,13 +287,127 @@ Seperti contoh dibawah ini, widget container kita masukan ke dalam body milik wi
 ...
 ```
 
+Output:
+
 ![Gambar 4. Widget Container](img/04%20container.png)
 
 Gambar 4. Widget Container
 
+Implementasi Container dalam dunia nyata bisa kita lihat misalnya dalam aplikasi ecommerce untuk menampilkan produk yang terdiri dari gambar, title, harga dan rating, sehingga bisa menjadi sebuah Card. Adapun Card sendiri sebenarnya terdapat widget bawaan.
+
+![Gambar 5. Implementasi Container menjadi Widget Card](img/05%20implementasi%20container.PNG)
+
+Gambar 5. Implementasi Container
+
+Baca Dokumentasi Resmi:
+
+- [Container.](https://api.flutter.dev/flutter/widgets/Container-class.html)
+- [BoxDecoration.](https://api.flutter.dev/flutter/painting/BoxDecoration-class.html)
+- [BorderRadius.](https://api.flutter.dev/flutter/painting/BorderRadius-class.html)
+- [BoxShadow.](https://api.flutter.dev/flutter/painting/BoxShadow-class.html)
+
 ## Text
 
+Widget teks digunakan untuk menampilkan teks di layar. Ini sangat fleksibel buat kita dalam memanipulasi text seperti mengubah warna font, menggunakan aset font atau paket dari Google Font, menambah ukuran font, memberi garis bawah pada text dan masih banyak lainnya. Di bawah ini adalah skema properties yang dimiliki oleh widget Text.
+
+```
+Text
+│───style
+|   │───TextStyle()
+|   |   │───color
+|   |   |───fontSize
+|   |   |───fontWeight
+|   |   |───fontFamily
+|   |   |───fontStyle
+|   |   |   |───italic
+|   |   |───decoration
+|   |   |   |───TextDecoration()
+|   |   |───decorationStyle
+|   |   |   |───TextDecorationStyle()
+|   |   |───letterSpacing
+|   |   |───wordSpacing
+|───overflow
+|   |───TextOverflow
+|   |   │───ellipsis
+|───maxLine
+|───textAlign
+|   |───TextAlign
+|   |   |───center
+|───textDirection
+|───textScaleFactor
+```
+
+Dalam contoh kode dibawah ceritanya kita ingin menampilkan text dengan style warnanya hitam, ukuran fontnya 22px, ketebalan hurufnya medium atau tengah-tengah dan letter spasinya 1px.
+
+```dart
+...
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: const Column(
+          children: [
+            Text(
+              "Discover the most modern furniture",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1),
+            )
+          ],
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 5. Widget Text](img/05%20text.png)
+
+Gambar 5. Widget Text
+
+Untuk implementasi Text dalam dunia nyata bisa kita lihat misalnya dalam aplikasi ecommerce untuk menampilkan tagline dari dari produk.
+
+![Gambar 6. Implementasi Text](img/06%20implementasi%20text.PNG)
+
+Gambar 6. Implementasi Text
+
+Baca Dokumentasi Resmi:
+
+- [Text.](https://api.flutter.dev/flutter/widgets/Text-class.html)
+- [TextStyle.](https://api.flutter.dev/flutter/painting/TextStyle-class.html)
+
 ## Button
+
+Tombol adalah salah satu bagian dasar dalam aplikasi apapun karena tombol merupakan cara paling intuitif untuk memberi tahu pengguna bahwa saat ditekan, akan terjadi sesuatu. Flutter memiliki beberapa jenis tombol yang sudah disediakan ya itu ElevatedButton, TextButton, OutlinedButton. Di bawah ini adalah skema properties yang dimiliki oleh widget Button.
+
+```
+Button
+│───ElevatedButton
+|   |───child
+|   |───onPressed
+|   │───style
+|   |   │───ElevatedButtonStyle
+|   |   |───fontSize
+|   |   |───fontWeight
+|   |   |───fontFamily
+|   |   |───fontStyle
+|   |   |   |───italic
+|   |   |───decoration
+|   |   |   |───TextDecoration()
+|   |   |───decorationStyle
+|   |   |   |───TextDecorationStyle()
+|   |   |───letterSpacing
+|   |   |───wordSpacing
+|───overflow
+|   |───TextOverflow
+|   |   │───ellipsis
+|───maxLine
+|───textAlign
+|   |───TextAlign
+|   |   |───center
+|───textDirection
+|───textScaleFactor
+```
 
 ## Icon
 
