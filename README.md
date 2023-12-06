@@ -11,7 +11,7 @@ Materi Mata Kuliah Pemrograman Mobile | Teknik Informatika UNISNU Jepara | Akhma
 > 3. Fork repository ini sehingga masuk ke repository di akun github masing-masing.
 > 4. Clone project dari repository github masing-masing.
 >    ```bash
->    git clone https://github.com/namauser/flutter-basics.git
+>    git clone https://github.com/namauser/flutter-ui.git
 >    ```
 > 5. Buat branch baru `dev` dan gunakan sebagai branch yang aktif.
 >
@@ -378,7 +378,7 @@ Baca Dokumentasi Resmi:
 
 ## Button
 
-Tombol adalah salah satu bagian dasar dalam aplikasi apapun karena tombol merupakan cara paling intuitif untuk memberi tahu pengguna bahwa saat ditekan, akan terjadi sesuatu. Flutter memiliki beberapa jenis tombol yang sudah disediakan ya itu ElevatedButton, TextButton, OutlinedButton. Di bawah ini adalah skema properties yang dimiliki oleh widget Button.
+Tombol adalah salah satu bagian dasar dalam aplikasi apapun karena tombol merupakan cara paling intuitif untuk memberi tahu pengguna bahwa saat ditekan, akan terjadi sesuatu. Flutter memiliki beberapa jenis tombol yang sudah disediakan ya itu `ElevatedButton`, `TextButton`, `OutlinedButton`. Di bawah ini adalah skema properties yang dimiliki oleh widget Button.
 
 ```
 Button
@@ -386,31 +386,197 @@ Button
 |   |───child
 |   |───onPressed
 |   │───style
-|   |   │───ElevatedButtonStyle
-|   |   |───fontSize
-|   |   |───fontWeight
-|   |   |───fontFamily
-|   |   |───fontStyle
-|   |   |   |───italic
-|   |   |───decoration
-|   |   |   |───TextDecoration()
-|   |   |───decorationStyle
-|   |   |   |───TextDecorationStyle()
-|   |   |───letterSpacing
-|   |   |───wordSpacing
-|───overflow
-|   |───TextOverflow
-|   |   │───ellipsis
-|───maxLine
-|───textAlign
-|   |───TextAlign
-|   |   |───center
-|───textDirection
-|───textScaleFactor
+|   |   │───ElevatedButton.styleFrom()
+|   |   |───ButtonStyle()
+|   |   |   |───backgroundColor
+|   |   |   |───foregroundColor
+|   |   |   |───elevation
+|   |   |   |───shape
+│───TextButton (properties sama seperti ElevatedButton)
+│───OutlinedButton (properties sama seperti ElevatedButton)
 ```
+
+Dalam contoh dibawah, ceritanya kita akan membuat sebuah button dengan style background biru, dan bentuknya itu akan ada lengkungan di tiap sisi sisinya, serta mempunyai sedikit bayangan. Lalu di dalamnya akan ada text dengan warna putih dan ukuran font 20px.
+
+```dart
+...
+      body: Container(
+        padding: const EdgeInsets.all(10.0),
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            shadowColor: Colors.grey[20],
+            elevation: 5.0,
+          ),
+          child: Text(
+            "Add To Cart".toUpperCase(),
+            style: const TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w500,
+                color: Colors.white),
+          ),
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 7. Widget Button](img/07%20button.png)
+
+Gambar 7. Widget Button
+
+Implementasi Button pada dunia nyata nanti akan bermanfaat untuk membuat tombol seperti tombol tambah ke keranjang atau tombol hubungi penjual.
+
+![Gambar 8. Implementasi Button](img/08%20implementasi%20button.PNG)
+
+Gambar 8. Implementasi Button
+
+Baca Dokumentasi Resmi:
+
+- [ElevatedButton.](https://api.flutter.dev/flutter/material/ElevatedButton-class.html)
+- [TextButton.](https://api.flutter.dev/flutter/material/TextButton-class.html)
+- [OutlinedButton.](https://api.flutter.dev/flutter/material/OutlinedButton-class.html)
+- [ButtonStyle.](https://api.flutter.dev/flutter/material/ButtonStyle-class.html)
 
 ## Icon
 
+Icon sudah tersedia di flutter, jadi kita tidak perlu mengunduhnya. Icon ini adalah gambar vektor sehingga ukurannya walau berubah-rubah ukuran, tidak akan kehilangan kualitas gambarnya.
+
+Dibawah ini adalah contoh penggunaan widget icon, dimana ceritanya saya ingin membuat icon home dengan ukuran 32, dan juga icon favorite dengan ukuran 36 dan bisa langsung dikasih warna merah.
+
+```dart
+...
+      body: Container(
+        color: Colors.blue[200],
+        padding: const EdgeInsets.all(20),
+        child: const Row(
+          children: [
+            Icon(
+              Icons.home,
+              size: 32,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.red,
+              size: 36,
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 9. Widget Icon](img/09%20icon.png)
+
+Gambar 9. Widget Icon
+
+Implementasi icon ini akan banyak sekali dipakai dalam aplikasi apapun yang akan kita buat. Contoh pada icon favorite, awalnya berbentuk outline love berwarna grey, kemudian jika di-tap akan menjadi full merah yang berarti untuk menandai suatu product telah dimasukan ke product favorite user.
+
+![Gambar 10. Implementasi Icon](img/09%20implementasi%20icon.PNG)
+
+Gambar 10. Implementasi Icon
+
+Baca Dokumentasi Resmi:
+
+- [Icon.](https://api.flutter.dev/flutter/widgets/Icon-class.html)
+
 ## Images
+
+Beberapa konstruktor disediakan untuk berbagai cara agar gambar dapat ditentukan:
+
+- `Image.new`, untuk mendapatkan gambar dari ImageProvider.
+- `Image.asset`, untuk mendapatkan gambar dari AssetBundle menggunakan kunci.
+- `Image.network`, untuk mendapatkan gambar dari URL.
+- `Image.file`, untuk mendapatkan gambar dari File.
+- `Image.memory`, untuk mendapatkan gambar dari Uint8List.
+
+Di bawah ini adalah mindmap yang dimiliki oleh widget Image.
+
+```
+Image
+│───Image.network()
+|   |───alignment
+|   |   │───Alignment
+|   |───color
+|   │───colorBlendMode
+|   |   │───BlendMode
+|   |───fit
+|   |   │───BoxFit
+|   |   |   |───.fill
+|   |   |   |───.contain
+|   |   |   |───.cover
+|   |   |   |───.fitWidth
+|   |   |   |───.fitHeight
+|   │───repeat
+|   |   │───ImageRepeat
+|   |   |   |───.repeat
+|   |   |   |───.repeatX
+|   |   |   |───.repeatY
+│───Image.asset()
+|   |───pubspec.yaml (path file gambar ditulis disini, dalam key assets)
+|   |   │───assets (file gambar diletakkan dalam folder assets)
+|   |   (property lain sama dengan network image)
+|   Circular Image (bagaimana untuk mendapatkan image yang bulat)
+|   |───Container
+|   |   │───decoration
+|   │───ClipOval
+|   |   │───child
+|   |   |   |───Image.network()
+|   |   │───height
+|   |   │───width
+|   |   │───fit
+```
+
+Code dibawah ini, saya ingin mempraktekan image yang diambi dari assets.
+
+```dart
+...
+      body: Container(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 180,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                child: Image.asset('assets/images/furniture/img_product_1.jpg'),
+              ),
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+Kemudian set config assets di pubspec.yaml
+
+```yaml
+assets:
+  - assets/images/furniture/
+```
+
+Jangan lupa masukan gambar nya ke folder yang sudah didaftakan ke config assets.
+
+Output:
+
+![Gambar 11. Widget Image](img/10%20image.png)
+
+Gambar 11. Widget Image
+
+Untuk implementasi di dunia nyata, nanti anda bisa membuat tampilan seperti berikut:
+
+![Gambar 12. Implementasi Image](img/11%20implementasi%20image.PNG)
+
+Gambar 12. Implementasi Image
 
 ## CircleAvatar
