@@ -93,6 +93,84 @@ Baca Dokumentasi Resmi:
 
 ## Row
 
+Widget `Row` ini menempatkan widget-widget anaknya pada sumbu horizontal dengan batasan ruang yang sudah ditentukan, kebalikan dari column. Dibawah ini adalah mindmap dari widget `Row`. `mainAxisAlignment` adalah alignment yang mengikuti sumbu axis nya row artinya sumbu horizontal. Sedang `crossAxisAlignment` adalah sebaliknya yaitu aligment yang mengikuti sumbu vertikal.
+
+```
+Row
+│───mainAxisAlignment
+|   |───MainAxisAlignment
+|   |   │───.start
+|   |   │───.center
+|   |   │───.end
+|   |   │───.spaceAround
+|   |   │───.spaceBetween
+|   |   │───.spaceEvenly
+│───children
+|   |───List<Widget>
+│───crossAxisAlignment
+|   |───CrossAxisAlignment
+|   |   │───.baseline
+|   |   │───.start
+|   |   │───.center
+|   |   │───.end
+|   |   │───.stretch
+```
+
+Contoh kode dibawah ceritanya kita akan membuat tampilan header dibagian sebelah kiri ada icon back, ditengah ada title dan disebelah kanan ada icon share.
+
+```dart
+...
+      body: Container(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.grey,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {},
+              ),
+            ),
+            const Text(
+              "Detail",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.share,
+                size: 32,
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 16. Widget Row](img/16%20row.png)
+
+Gambar 16. Widget Row
+
+Nantinya dapat kita implementasi seperti contoh berikut dalam menata tampilan di detail product untuk headernya.
+
+![Gambar 17. Implementasi Row](img/17%20implementasi%20row.PNG)
+
+Gambar 17. Implementasi Row
+
+Baca Dokumentasi Resmi:
+
+- [Row.](https://api.flutter.dev/flutter/widgets/Row-class.html)
+
 ## ListView
 
 ## GridView
