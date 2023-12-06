@@ -645,3 +645,5 @@ Gambar 13. Implementasi CircleAvatar
 Baca Dokumentasi Resmi:
 
 - [CircleAvatar.](https://api.flutter.dev/flutter/material/CircleAvatar-class.html)
+
+# [Materi Selanjutnya: Layout](layout.md)
