@@ -579,4 +579,69 @@ Untuk implementasi di dunia nyata, nanti anda bisa membuat tampilan seperti beri
 
 Gambar 12. Implementasi Image
 
+Baca Dokumentasi Resmi:
+
+- [Image.](https://api.flutter.dev/flutter/widgets/Image-class.html)
+
 ## CircleAvatar
+
+Ini adalah widget yang selalu berbentuk lingkaran yang mempunyai background warna atau gambar. Biasa digunakan untuk gambar profil user. Walau tidak menutup kemungkinan untuk urusan lain yang penting urusan bentuk lingkaran dengan latar belakang gambar dan warna. Seperti contoh dibawah. Disini kita membuat profile picture menggunakan CircleAvatar dengan radius 50. Lalu kita membuat row yang isinya widget lingkaran dengan latar belakang warna dengan radius 40.
+
+```dart
+...
+  Widget build(BuildContext context) {
+    List<Color> colors = [
+      Colors.red,
+      Colors.green,
+      Colors.blue,
+    ];
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Coding Flutter - CircleAvatar"),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CircleAvatar(
+              radius: 50,
+              backgroundImage: NetworkImage('https://picsum.photos/200'),
+            ),
+            Row(
+              children: [
+                ...List.generate(
+                  colors.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: colors[index],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+...
+```
+
+Output:
+
+![Gambar 12. Widget CircleAvatar](img/12%20circleavatar.png)
+
+Gambar 12. Widget CircleAvatar
+
+Untuk implementasi di dunia nyata, nanti anda bisa membuat tampilan seperti berikut:
+
+![Gambar 13. Implementasi CircleAvatar](img/13%20implementasi%20circleavatar.PNG)
+
+Gambar 13. Implementasi CircleAvatar
+
+Baca Dokumentasi Resmi:
+
+- [CircleAvatar.](https://api.flutter.dev/flutter/material/CircleAvatar-class.html)
