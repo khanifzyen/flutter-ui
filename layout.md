@@ -173,6 +173,131 @@ Baca Dokumentasi Resmi:
 
 ## ListView
 
+ListView pada dasarnya adalah sebuah Kolom dengan perilaku bergulir atau scroll karena menempatkan satu atau lebih banyak anak dalam sumbu vertikal, secara berurutan. Widget ini sangat banyak digunakan karena memberikan keunggulan untuk menggulirkan konten ketika jumlah content lebih besar dari ukuran layar.Untuk membuat listview scroll ke samping, teman-teman bisa menggunakan properties scollDirection Axis.horizontal seperti yang terlihat di mindmap
+
+```
+ListView
+│───children
+|   |───List<Widget>
+│───scrollDirection
+|   |───Axis
+|   |   │───.horizontal
+|   |   │───.vertical
+│───padding
+|   |───EdgeInset
+|   |   │───.all()
+|   |   │───.only()
+|   |   │───.symmetric
+│───reverse
+|   |───bool
+│───pyshics
+|   |───NeverScrollableScrollPhysics()
+│───shrinkWrap
+|   |───bool
+|   |   │───true
+|   |   │───false
+```
+
+Dalam contoh code dibawah ini, saya ingin memperlihatkan bagaimana kita dapat membuat tampilan list ke samping dan jumlah kontennya melebihi lebar layar dan itu tidak masalah, karena dia dapat di scroll ke samping. Kita membuat widget listview dimana childnya adalah list dari categories.
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyListView extends StatelessWidget {
+  MyListView({super.key});
+
+  final List<String> categories = [
+    "All",
+    "Living Room",
+    "Bedroom",
+    "Dining Room",
+    "Kitchen"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Coding Flutter - ListView"),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            height: 35,
+            child: CustomListView(
+              categories: categories,
+              scrollDirection: Axis.horizontal,
+            ),
+          ),
+          SizedBox(
+            height: 200,
+            child: CustomListView(
+              categories: categories,
+              scrollDirection: Axis.vertical,
+            ),
+          ),
+          SizedBox(
+            height: 200,
+            child: CustomListView(
+              categories: categories,
+              scrollDirection: Axis.vertical,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomListView extends StatelessWidget {
+  const CustomListView({
+    super.key,
+    required this.categories,
+    required this.scrollDirection,
+  });
+
+  final List<String> categories;
+  final Axis scrollDirection;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      scrollDirection: scrollDirection,
+      children: List.generate(
+        categories.length,
+        (index) {
+          return GestureDetector(
+            onTap: () {},
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 8,
+              ),
+              margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+              child: Text(categories[index],
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1,
+                  )),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+```
+
 ## GridView
 
 ## Padding
