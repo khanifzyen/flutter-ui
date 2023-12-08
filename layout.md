@@ -775,4 +775,25 @@ Gambar 29. Widget SizedBox
 
 Gambar 30. Implementasi SizedBox
 
+Baca Dokumentasi Resmi:
+
+- [SizedBox.](https://api.flutter.dev/flutter/widgets/SizedBox-class.html)
+
 ## Wrap
+
+Widget yang menampilkan childnya dalam beberapa urutan horizontal atau vertikal. Sebuah wrap widget meletakkan setiap child dan mencoba untuk menempatkan childnya berdekatan dengan child sebelumnya di sumbu utama, diberikan arahnya, dan meninggalkan ruang jarak di antaranya. Jika tidak ada cukup ruang untuk memasukkan childnya, wrap membuat lintasan baru yang berdekatan dengan child yang sudah ada di sumbu silang.
+
+```
+SizedBox
+│───direction
+│───alignment
+|   │───mainAxis
+│───runAlignment
+|   │───crossAxis
+│───spacing
+|   │───mainAxis
+│───runSpacing
+|   │───crossAxis
+```
+
+Contoh kode disamping memperlihatkan list widget lingkaran dengan warna dibungkus dengan wrap dan hasilnya ketika kontennya tadi menabrak lebar layar, maka konten selanjutkan akan ditempat paling dekat dengan temannya namun disisi cross dari sumbu utama alias ketika ke samping maka next contentnya akan ada dibawahnya.
