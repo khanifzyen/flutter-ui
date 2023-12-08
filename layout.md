@@ -435,9 +435,151 @@ Baca Dokumentasi Resmi:
 
 - [GridView.](https://api.flutter.dev/flutter/widgets/GridView-class.html)
 
+## Stack
+
+Dengan Widget Stack, Anda dapat menumpuk widget dan memposisikannya dengan bebas di layar menggunakan widget Positioned. Bahkan jika childrennya ditempatkan di luar batas UI, tidak akan ada kesalahan sistem yang muncul, karena Stack tidak membatasi batas lebar dan tinggi.
+
+```
+Stack
+│───alignment
+|   |───Alignment
+|   |   |───top
+|   |   |   |───left
+|   |   |   |───center
+|   |   |   |───right
+|   |   |───center
+|   |   |   |───left
+|   |   |   |───right
+|   |   |───bottom
+|   |   |   |───left
+|   |   |   |───center
+|   |   |   |───right
+|   |───Alignment()
+|   |   |───x
+|   |   |   |───1
+|   |   |   |   |───right
+|   |   |   |───-1
+|   |   |   |   |───left
+|   |   |───y
+|   |   |   |───1
+|   |   |   |   |───bottom
+|   |   |   |───-1
+|   |   |   |   |───top
+│───children
+```
+
+Seperti contoh code dibawah. Saya membuat tampilan menggunakan Stack dimana dibagian bawah saya mempunyai icon shopping cart dengan size 50, lalu diatasnya saya tumpuk dengan widget lingkaran dengan radius 10 dan background warna merah lalu didalamnya terdapat text angka 3.
+
+```dart
+...
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Icon(
+              Icons.shopping_cart,
+              size: 50,
+            ),
+            Positioned(
+              top: -4,
+              right: -4,
+              child: CircleAvatar(
+                radius: 10,
+                backgroundColor: Colors.red,
+                child: Text(
+                  "1",
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 22. Widget Stack](img/22%20stack.png)
+
+Gambar 22. Widget Stack
+
+Baca Dokumentasi Resmi:
+
+- [Stack.](https://api.flutter.dev/flutter/widgets/Stack-class.html)
+
 ## Padding
 
+Padding widget melakukan persis seperti namanya, menambahkan padding atau ruang kosong di sekitar widget atau sekelompok widget. Kita dapat menerapkan padding di sekitar widget apapun dengan menempatkannya sebagai child dari widget Padding.
+
+```
+Padding
+│───EdgeInsets
+|   |───.only()
+|   |───.symmetric()
+|   |───.all()
+|   |───.fromLTRB()
+```
+
+Seperti contoh dibawah. Text categories saya bungkus dengan widget padding supaya mempunyai jarak dengan area luarnya. Disini saya set jarak dari text ke arah kiri sejauh 20px, keatas 30px dan ke bawah 40px.
+
+```dart
+...
+      body: Container(
+        height: 500,
+        width: 300,
+        margin: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(),
+        ),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20.0,
+                top: 30,
+                bottom: 40,
+              ),
+              child: Text(
+                "Categories",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 23. Widget Padding](img/23%20padding.png)
+
+Gambar 23. Widget Padding
+
+Baca Dokumentasi Resmi:
+
+- [Padding.](https://api.flutter.dev/flutter/widgets/Padding-class.html)
+
 ## AspectRatio
+
+Widget yang mencoba mengubah ukuran child ke rasio tinggi dan lebar tertentu.Widget terlebih dahulu mencoba rasio lebarnya terlebihdahulu sesuai yang sudah diatur. Ketinggian widget ditentukan dengan menerapkan rasio aspek yang diberikan ke lebar, dinyatakan sebagai rasio lebar terhadap tinggi.
+
+```
+AspectRatio
+│───aspectRatio
+│───child
+```
+
+Seperti contoh code dibawah. Saya memasukkan Container dengan color blue kedalam widget AspectRatio dengan rasio lebar 180 dan tingginya 240. Dan widget ini akan otomatis mengikuti lebar dan tinggi layar dengan rasio yang sama
 
 ## Center
 
@@ -446,5 +588,3 @@ Baca Dokumentasi Resmi:
 ## SizedBox
 
 ## Wrap
-
-## Stack
