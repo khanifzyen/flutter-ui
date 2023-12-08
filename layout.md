@@ -610,8 +610,119 @@ Baca Dokumentasi Resmi:
 
 ## Center
 
+Widget ini akan memusatkan anak nya kediri dia, yang itu artinya widget anaknya akan ada ditengah-tengah widget disekitarnya karena sifatnya yang dapat memenuhi ruang di sekitarnya. Pada contoh di bawah saya bungkus button add to
+cart dengan center sehingga tampilannya bisa berada ditengah layar.
+
+```dart
+...
+        child: Column(
+          children: [
+            Center(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  shadowColor: Colors.grey[20],
+                  elevation: 5.0,
+                ),
+                child: Text(
+                  "Add To Cart".toUpperCase(),
+                  style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+...
+```
+
+Output:
+
+![Gambar 26. Widget Center](img/25%20center.png)
+
+Gambar 26. Widget Center
+
+![Gambar 27. Implementasi Center](img/26%20implementasi%20center.PNG)
+
+Gambar 27. Implementasi Center
+
+Baca Dokumentasi Resmi:
+
+- [Center.](https://api.flutter.dev/flutter/widgets/Center-class.html)
+
 ## Expanded
 
+Widget yang memperluas childnya dari Row, Column, atau Flex sehingga child tersebut mengisi ruang yang tersedia. Dengan expanded widget child dari Row, Column, atau Flex dapat memperluas diri untuk mengisi ruang yang tersedia di sepanjang sumbu utamanya (misal secara horizontal untuk Baris/row atau vertikal untuk Kolom). Jika beberapa child diperluas, ruang yang tersedia dibagi di antara mereka menurut faktor flex.
+
+```
+Expanded
+│───flex
+│───child
+```
+
+Expanded harus berada di bawahnya row atau column, dalam contoh kode disamping, expanded ada di dalam row dan membungkus text list checklist, yg artinya text ini akan mengisi sisa area yg ada. Yg akhirnya icon arrow back dan check akan ada di sebelah kiri dan kanan.
+
+```dart
+...
+     body: Container(
+        margin: const EdgeInsets.all(10.0),
+        child: const Column(
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.arrow_back_ios,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "List checklist ",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+                Icon(
+                  Icons.check,
+                  color: Colors.blue,
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 28. Widget Expanded](img/27%20expanded.png)
+
+Gambar 28. Widget Expanded
+
+Bisa dilihat bahwa list checklist memenuhi area yang ada sehingga icon check berada di paling ujung kanan.
+
+Baca Dokumentasi Resmi:
+
+- [Expanded.](https://api.flutter.dev/flutter/widgets/Expanded-class.html)
+
 ## SizedBox
+
+Sebuah kotak dengan ukuran tertentu. Jika diberi child, widget ini memaksanya child untuk memiliki lebar dan/atau tinggi tertentu. Nilai ini akan diabaikan jika induk widget ini mempunyai ukuran sendiri, maka sizedbox mengikuti ukuran parent nya. Hal ini dapat diatasi dengan membungkus child dari SizedBox ke dalam sebuah widget yang memungkinkan ukurannya sesuai dengan ukuran induknya, seperti Center atau Align.
+
+```
+SizedBox
+│───height
+│───width
+│───child
+```
+
+Untuk contoh dibawah ini, SizedBox dipakai untuk membuat jarak antar text dengan membuat kotak kosong dengan tinggi 4 dan tinggi 2.
 
 ## Wrap
