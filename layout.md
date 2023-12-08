@@ -198,7 +198,7 @@ ListView
 |   |   │───false
 ```
 
-Dalam contoh code dibawah ini, saya ingin memperlihatkan bagaimana kita dapat membuat tampilan list ke samping dan jumlah kontennya melebihi lebar layar dan itu tidak masalah, karena dia dapat di scroll ke samping. Kita membuat widget listview dimana childnya adalah list dari categories.
+Dalam contoh code dibawah ini, saya ingin memperlihatkan bagaimana kita dapat membuat tampilan list ke samping dan jumlah kontennya melebihi lebar layar dan itu tidak masalah, karena dia dapat di scroll ke samping. Kita membuat widget ListView dimana childnya adalah list dari categories.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -298,7 +298,142 @@ class CustomListView extends StatelessWidget {
 
 ```
 
-## GridView
+Output:
+
+![Gambar 18. Widget ListView](img/18%20listview.png)
+
+Gambar 18. Widget ListView
+
+Nantinya dapat kita implementasi seperti contoh berikut dalam menata tampilan untuk memilih kategori furniture.
+
+![Gambar 19. Implementasi ListView](img/19%20implementasi%20listview.PNG)
+
+Gambar 19. Implementasi ListView
+
+Baca Dokumentasi Resmi:
+
+- [ListView.](https://api.flutter.dev/flutter/widgets/ListView-class.html)
+- [GestureDetector.](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html)
+- [AnimatedContainer.](https://api.flutter.dev/flutter/widgets/Row-class.html)
+
+## ListView.builder
+
+`ListView.builder()` sangat berguna ketika list harus dibuat berdasarkan data yang lebih banyak. Dokumentasi resmi Flutter menyarankan untuk menggunakan konstruktor bernama `builder()` ketika sumber data adalah data yang panjang karena secara efisien widget ini akan mengelola anak-anaknya ketika dipanggil dan hanya akan di build ketika terlihat dilayar. Jadi, daripada secara manual mengisi ListView yang panjang dengan loop for, gunakan `builder()` yang lebih efisien.
+
+```
+ListView.builder()
+│───itemCount
+│───itemBuilder
+|   |───context
+|   |───index
+```
+
+Dibawah ini adalah contoh tampilan yang menggunakan listview builder. Untuk data yang panjang seperti data dari database sangatlah cocok menggunakan widget ini karena data akan diproses build ketika data di tampilan di layar akibat dari scroll kebawah atau keatas.
+
+```dart
+...
+    return ListView.builder(
+      itemCount: categories.length,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {},
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey,
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 8,
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+            child: Text(categories[index],
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1,
+                )),
+          ),
+        );
+      },
+    );
+...
+```
+
+Untuk tampilan ListView.builder sama seperti menggunakan ListView biasa, .scrollDirection nya vertikal atau dari atas ke bawah. Untuk data sedikit mungkin tidak terlalu terlihat perbedaannya, namun untuk data yang banyak akan terlihat lebih efisien menggunakan ListView.builder
+
+## GridView.builder
+
+Widget GridView secara otomatis menempatkan elemen dalam grid dan jumlah kolom ditentukan oleh nilai yang diteruskan ke crossAxisCount. Kode ini dikatakan responsif karena ketika lebar layar berubah, maka UI akan diatur ulang.
+
+```
+GridView.builder()
+│───itemCount
+│───itemBuilder
+|   |───context
+|   |───index
+│───gridDelegate
+|   |───SliverGridDelegateWithFixedCrossAxisCount()
+|   |───SliverGridDelegateWithMaxCrossAxisCount()
+```
+
+Kode disamping kita menggunakan gridview untuk membuat tampilan 2 column yang akan berisi container dengan bentuk yang siap menampung tampilan product.
+
+```dart
+...
+      body: Expanded(
+        child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
+            itemCount: 50,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 100,
+                width: double.infinity,
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      offset: Offset.zero,
+                      blurRadius: 15,
+                    ),
+                  ],
+                ),
+                child: Center(
+                    child: Text(
+                  (index + 1).toString(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                )),
+              );
+            }),
+      ),
+...
+```
+
+Output:
+
+![Gambar 20. Widget GridView.builder](img/20%20gridview.png)
+
+Gambar 20. Widget GridView.builder
+
+Nantinya dapat kita implementasi seperti contoh berikut dalam menata tampilan untuk memilih kategori furniture.
+
+![Gambar 21. Implementasi GridView.builder](img/21%20implementasi%20gridview.PNG)
+
+Gambar 21. Implementasi GridView
+
+Baca Dokumentasi Resmi:
+
+- [GridView.](https://api.flutter.dev/flutter/widgets/GridView-class.html)
 
 ## Padding
 
