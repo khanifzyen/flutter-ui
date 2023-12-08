@@ -579,7 +579,34 @@ AspectRatio
 │───child
 ```
 
-Seperti contoh code dibawah. Saya memasukkan Container dengan color blue kedalam widget AspectRatio dengan rasio lebar 180 dan tingginya 240. Dan widget ini akan otomatis mengikuti lebar dan tinggi layar dengan rasio yang sama
+Seperti contoh code dibawah. Saya memasukkan Container dengan color blue kedalam widget AspectRatio dengan rasio lebar 180 dan tingginya 240. Dan widget ini akan otomatis mengikuti lebar dan tinggi layar dengan rasio yang sama.
+
+```dart
+...
+      body: AspectRatio(
+        aspectRatio: 180 / 240,
+        child: Container(
+          color: Colors.red,
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 24. Widget AspectRatio](img/24%20aspectratio.png)
+
+Gambar 24. Widget AspectRatio
+
+Mungkin tidak begitu terlihat hasil rasionya, namun ketika widget ini dimasukan ke dalam gridview, maka akan cocok sekali karena konten yg ada di dalam gridview nanti nya akan memiliki rasio yg sama dan fleksible mengikuti lebar dan tinggi layar device.
+
+![Gambar 25. Implementasi AspectRatio](img/24%20implementasi%20aspectratio.PNG)
+
+Gambar 25. Implementasi AspectRatio
+
+Baca Dokumentasi Resmi:
+
+- [AspectRatio.](https://api.flutter.dev/flutter/widgets/AspectRatio-class.html)
 
 ## Center
 
