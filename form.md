@@ -255,7 +255,7 @@ class _MySwitchState extends State<MySwitch> {
 
 Output:
 
-![Gambar 34. Widget Switch](img/)
+![Gambar 34. Widget Switch](img/33%20switch.png)
 
 Gambar 34. Widget Switch
 
@@ -265,7 +265,160 @@ Baca Dokumentasi Resmi:
 
 ## Radio
 
+Digunakan untuk memilih di antara sejumlah nilai yang sudah ditentukan. Ketika satu tombol radio dalam grup dipilih, tombol radio lain dalam grup tidak lagi dipilih. Nilainya bertipe tipe yang sama, parameter tipe dari kelas Radio. Enum biasanya digunakan untuk tujuan ini.
+
+Tombol radio itu sendiri tidak mempertahankan state apa pun. Sebagai gantinya, radio akan memanggil callback onChanged, meneruskan nilai sebagai parameter. Jika groupValue dan nilai cocok, radio ini akan dipilih. Sebagian besar widget akan merespons onChanged dengan memanggil setState untuk memperbarui groupValue pada tombol radio
+
+```
+Radio
+│───value
+|───onChanged
+|───groupValue
+|───selected
+```
+
+Seperti contoh kode dibawah, saya membuat groupValue dengan group param sex dan default valuenya male.
+
+Lalu group valuenya akan diganti melalui properties onChanged nya ketika di klik akan mentriger properties ini dan mengupdate value nya.
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyRadio extends StatefulWidget {
+  const MyRadio({super.key});
+
+  @override
+  State<MyRadio> createState() => _MyRadioState();
+}
+
+class _MyRadioState extends State<MyRadio> {
+  String sex = "pria";
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text("Jenis Kelamin: "),
+        const SizedBox(width: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Radio(
+              value: 'pria',
+              groupValue: sex,
+              onChanged: (value) {
+                setState(() {
+                  if (value != null) {
+                    sex = value;
+                    print("sex: $sex");
+                  }
+                });
+              },
+            ),
+            const Text("Pria"),
+          ],
+        ),
+        const SizedBox(width: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Radio(
+              value: "wanita",
+              groupValue: sex,
+              onChanged: (value) {
+                setState(() {
+                  if (value != null) {
+                    sex = value;
+                    print("sex: $sex");
+                  }
+                });
+              },
+            ),
+            const Text("Wanita"),
+          ],
+        ),
+      ],
+    );
+  }
+}
+```
+
+Hasil kodenya seperti dibawah ini. Jika di klik male,maka female akan otomatis tidak terpilih dan sebaliknya.
+
+Output:
+
+![Gambar 35. Widget Radio](img/35%20radio.png)
+
+Gambar 35. Widget Radio
+
+Baca Dokumentasi Resmi:
+
+- [Radio.](https://api.flutter.dev/flutter/material/Radio-class.html)
+
 ## Checkbox
+
+Kotak centang atau checkbox, tidak mempertahankan statusnya sendiri. Sebagai gantinya, saat nilai checkbox berubah, widget akan memanggil callback onChanged untuk mengupdate nilai param yang dipakai di valuenya. Sebagian besar widget yang menggunakan checkbox akan mendengarkan callback onChanged dan membuat ulang checkbox dengan nilai baru untuk memperbarui tampilan visual checkbox.
+
+Kotak centang secara opsional dapat menampilkan tiga nilai - true, false, dan null. Ketika nilainya null, tanda hubung ditampilkan. Secara default mempunyai value false dan value checkbox harus true atau false.
+
+```
+Checkbox
+│───value
+|───onChanged
+|───activeColor
+|───selected
+```
+
+Seperti contoh code disamping ini, saya membuat satu checkbox dengan value default false. Lalu ketika di klik akan mentriger onChanged dan value isCheckednya akan terupdate dengan data dari checkboxnya dan di rebuild ulang dengan bantuan setState
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyCheckbox extends StatefulWidget {
+  const MyCheckbox({super.key});
+
+  @override
+  State<MyCheckbox> createState() => _MyCheckboxState();
+}
+
+class _MyCheckboxState extends State<MyCheckbox> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+          value: isChecked,
+          onChanged: (value) {
+            setState(() {
+              if (value != null) {
+                isChecked = value;
+                print("setuju: $isChecked");
+              }
+            });
+          },
+        ),
+        const SizedBox(width: 4),
+        const Text(
+          "Setuju syarat dan ketentuan.",
+          style: TextStyle(decoration: TextDecoration.underline),
+        ),
+      ],
+    );
+  }
+}
+```
+
+Output:
+
+![Gambar 36. Widget Checbox](img/36%20checkbox.png)
+
+Gambar 36. Widget Checkbox
+
+Baca Dokumentasi Resmi:
+
+- [Checkbox.](https://api.flutter.dev/flutter/material/Checkbox-class.html)
 
 ## DatePicker
 
