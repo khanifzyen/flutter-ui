@@ -784,7 +784,7 @@ Baca Dokumentasi Resmi:
 Widget yang menampilkan childnya dalam beberapa urutan horizontal atau vertikal. Sebuah wrap widget meletakkan setiap child dan mencoba untuk menempatkan childnya berdekatan dengan child sebelumnya di sumbu utama, diberikan arahnya, dan meninggalkan ruang jarak di antaranya. Jika tidak ada cukup ruang untuk memasukkan childnya, wrap membuat lintasan baru yang berdekatan dengan child yang sudah ada di sumbu silang.
 
 ```
-SizedBox
+Wrap
 │───direction
 │───alignment
 |   │───mainAxis
@@ -796,4 +796,77 @@ SizedBox
 |   │───crossAxis
 ```
 
-Contoh kode disamping memperlihatkan list widget lingkaran dengan warna dibungkus dengan wrap dan hasilnya ketika kontennya tadi menabrak lebar layar, maka konten selanjutkan akan ditempat paling dekat dengan temannya namun disisi cross dari sumbu utama alias ketika ke samping maka next contentnya akan ada dibawahnya.
+Contoh kode dibawah ini memperlihatkan list widget lingkaran dengan warna dibungkus dengan wrap dan hasilnya ketika kontennya tadi menabrak lebar layar, maka konten selanjutnya akan ditempatkan paling dekat dengan temannya namun disisi cross dari sumbu utama alias ketika ke samping maka next contentnya akan ada dibawahnya.
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyWrap extends StatelessWidget {
+  MyWrap({super.key});
+
+  final List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.yellow,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.teal,
+    Colors.cyan,
+    Colors.indigo,
+    Colors.brown,
+    Colors.grey,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Coding Flutter - Wrap"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Wrap(
+              spacing: 20,
+              runSpacing: 10,
+              children: colors.map((color) {
+                return InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 3, color: Colors.grey),
+                      color: color,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 15,
+                            offset: Offset.zero),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+Output:
+
+![Gambar 31. Widget Wrap](img/30%20wrap.png)
+
+Gambar 31. Widget Wrap
+
+Baca Dokumentasi Resmi:
+
+- [Wrap.](https://api.flutter.dev/flutter/widgets/Wrap-class.html)
