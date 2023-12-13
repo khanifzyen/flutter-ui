@@ -476,7 +476,111 @@ class _MyDatePickerState extends State<MyDatePicker> {
 }
 ```
 
+Code tersebut bila kita running hasilnya akan seperti gambar dibawah ini. Pertama tampilan berupa textfield dan ketika diklik maka dialog calendar untuk memilih tanggal akan muncul dan kita dapat meng select salah satunya lalu kita ada pilihan ok atau cancel.
+
+Output:
+
+![Gambar 37. Widget DatePicker](img/37%20datepicker.png)
+
+Gambar 37. Function `showDatePicker` yang mengembalikan `DateTime`
+
+Baca Dokumentasi Resmi:
+
+- [showDatePicker.](https://api.flutter.dev/flutter/material/showDatePicker.html)
+
 ## Dialog
+
+Dialog adalah jenis jendela modal yang muncul di depan konten aplikasi untuk memberikan informasi penting atau meminta keputusan. Dialog menonaktifkan semua fungsionalitas aplikasi saat muncul, dan tetap berada di layar hingga dikonfirmasi, ditutup, atau tindakan yang diperlukan telah dilakukan.Dialog sengaja mengganggu, sehingga harus digunakan secara cermat.
+
+```
+Dialog
+│───showDialog()
+|   │───context
+|   │───builder
+|   │───barrierDismissable
+|   |   │───bool
+|───AlertDialog
+|   │───title
+|   |   │───Widget
+|   │───content
+|   |   │───Widget
+|   │───actions
+|   |   │───List<Widget>
+|   |   |   │───TextButton()
+|   │───elevation
+|   │───backgroundColor
+|   │───shape
+|   |   │───CircleBorder()
+|   |   │───RoundedRectangleBorder()
+|───SimpleDialog
+|   │───title
+|   │───children
+|   |   │───List<Widget>
+|   |   |   │───SimpleDialogOption()
+|───showGeneralDialog()
+|   |───context
+|   |───pageBuilder
+```
+
+Contoh code disamping ini saya mempunya button dengan text Open Dialog, dan ketika di klik maka akan menjalankan onPressed dan menjalankan showDialog, disini saya mengembalikan AlertDialog dengan berisi title, content dan action.
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyDialog extends StatefulWidget {
+  const MyDialog({super.key});
+
+  @override
+  State<MyDialog> createState() => _MyDialogState();
+}
+
+class _MyDialogState extends State<MyDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () async {
+        await showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Info'),
+              content: const SingleChildScrollView(
+                child: ListBody(
+                  children: [
+                    Text('Your order was placed.'),
+                  ],
+                ),
+              ),
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: const Text('Open Dialog'),
+    );
+  }
+}
+```
+
+![Gambar 38. Widget AlertDialog](img/38%20dialog.png)
+
+Gambar 38. Function `showDialog` yang mengembalikan `AlertDialog`
+
+Baca Dokumentasi Resmi:
+
+- [showDialog.](https://api.flutter.dev/flutter/material/showDialog.html)
+
+- [AlertDialog.](https://api.flutter.dev/flutter/material/AlertDialog-class.html)
 
 ## BottomSheet
 
