@@ -572,6 +572,8 @@ class _MyDialogState extends State<MyDialog> {
 }
 ```
 
+Output:
+
 ![Gambar 38. Widget AlertDialog](img/38%20dialog.png)
 
 Gambar 38. Function `showDialog` yang mengembalikan `AlertDialog`
@@ -584,4 +586,117 @@ Baca Dokumentasi Resmi:
 
 ## BottomSheet
 
+Bottom sheet adalah tampilan tambahan yang muncul dibagian bawah yang umum digunakan pada ponsel.
+
+Ada tiga penggunaan yang cocok untuk tiap kasusnya:
+
+- Bottom sheet standar: menampilkan konten yang melengkapi konten utama layar. Bottom sheet tetap terlihat saat user berinteraksi dengan konten utama.
+- Bottom sheet modal adalah alternatif untuk dialog sederhana di seluler dan menyediakan ruang untuk item tambahan, deskripsi yang lebih panjang, dan ikonografi. Mereka harus ditutup untuk berinteraksi dengan konten aplikasi utamanya.
+- Bottom sheet yang menyediakan permukaan kecil yang diciutkan yang dapat diperluas oleh user untuk mengakses fitur atau tugas utama. Mereka menawarkan akses tetap bottom sheet standar dengan ruang dan fokus bottom sheet modal
+
+```
+BottomSheet
+│───showModalBottomSheet()
+|   │───context
+|   │───builder
+```
+
+Contoh kode dibawah, saya mempunyai button open bottomsheet dan ketika saya klik maka akan menjalan onPressed function dan mentriger showModalBottomSheet sehingga widget yang di return oleh nya akan muncul di bagian bawah.
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyBottomSheet extends StatefulWidget {
+  const MyBottomSheet({super.key});
+
+  @override
+  State<MyBottomSheet> createState() => _MyBottomSheetState();
+}
+
+class _MyBottomSheetState extends State<MyBottomSheet> {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () async {
+        showModalBottomSheet<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return Padding(
+              padding: const EdgeInsets.all(20),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('Your order was placed!'),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Ok'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+      child: const Text('Open BottomSheet'),
+    );
+  }
+}
+```
+
+Output:
+
+![Gambar 39. Widget BottomSheet](img/39%20bottomsheet.png)
+
+Gambar 39. Function `showBottomSheet` yang mengembalikan `WidgetBuilder`
+
+Baca Dokumentasi Resmi:
+
+- [showBottomSheet.](https://api.flutter.dev/flutter/material/ScaffoldState/showBottomSheet.html)
+
+- [BottomSheet.](https://api.flutter.dev/flutter/material/BottomSheet-class.html)
+
 ## Snackbar
+
+Widget ini bermanfaat untuk memberi tahu user secara singkat saat tindakan tertentu terjadi. Misalnya, saat user menghapus pesan dalam daftar, Anda mungkin ingin memberitahu mereka bahwa pesan tersebut telah dihapus. Anda bahkan mungkin ingin memberi mereka opsi untuk membatalkan tindakan.
+
+Seperti contoh kode didibawah, snackbar saya trigger ketika saya klik button Open Snackbar
+
+```dart
+...
+    return ElevatedButton(
+      onPressed: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.blue,
+            content: Text('Your request is succesful'),
+          ),
+        );
+      },
+      child: const Text('Open SnackBar'),
+    );
+...
+```
+
+Output:
+
+![Gambar 40. Widget Snackbar](img/40%20snackbar.png)
+
+Gambar 40. Function `showSnackBar` dengan parameter `SnackBar`
+
+Baca Dokumentasi Resmi:
+
+- [showSnackBar.](hhttps://api.flutter.dev/flutter/material/ScaffoldMessengerState/showSnackBar.html)
+
+- [SnackBar.](https://api.flutter.dev/flutter/material/SnackBar-class.html)
+
+# [Materi Selanjutnya: Navigator](navigator.md)
