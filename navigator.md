@@ -98,6 +98,22 @@ Navigation pop ini berfungsi untuk kembali ke page sebelumnya setelah tampil kar
 
 ## Bottom Navigation Bar
 
+Ini adalah widget yang ditampilkan di bagian bawah aplikasi untuk memilih diantara beberapa tampilan, biasanya antara tiga dan lima. Bottom navigation bar terdiri dari beberapa item dalam bentuk label teks, ikon, atau keduanya, yang diletakkan di atas material. Ini menyediakan navigasi cepat antara tampilan tingkat atas aplikasi. Untuk layar yang lebih besar, navigasi samping mungkin lebih cocok.Bottom navigation bar biasanya digunakan bersamaan dengan Scaffold, yang disediakan sebagai argumen Scaffold.bottomNavigationBar.
+
+```
+BottomNavigationBar
+│───items
+|   |───List<BottomNavigationBarItem>
+│───iconSize
+│───currentIndex
+│───onTap
+│───fixedColor
+│───type
+|   |───BottomNavigationBarType
+|   |   |───fixed
+|   |   |───shifting
+```
+
 ## TabBar
 
 ## Drawer
