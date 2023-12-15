@@ -81,7 +81,20 @@ Baca Dokumentasi Resmi:
 
 ## Navigator pop
 
-Navigation pop ini berfungsi untuk kembali ke page sebelumnya setelah tampil karena navigator pop. Code disamping memperlihatkan kondisi ketika page two dengan button go back diklik, maka akan kembali ke page pertama
+Navigation pop ini berfungsi untuk kembali ke page sebelumnya setelah tampil karena navigator pop. Code disamping memperlihatkan kondisi ketika page two dengan button go back diklik, maka akan kembali ke page pertama. Ubah kode di page two menjadi seperti kode berikut:
+
+```dart
+...
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Go Back'),
+        ),
+...
+```
 
 ## Bottom Navigation Bar
 
