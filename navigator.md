@@ -114,7 +114,167 @@ BottomNavigationBar
 |   |   |───shifting
 ```
 
+```dart
+...
+  List<Map<String, dynamic>> menuItems = [
+    {
+      "title": "Home",
+      "icon": Icons.home,
+    },
+    {
+      "title": "Chart",
+      "icon": Icons.shopping_cart,
+    },
+    {
+      "title": "Favorites",
+      "icon": Icons.star_border,
+    },
+    {
+      "title": "Account",
+      "icon": Icons.person,
+    },
+  ];
+
+  int _selectedItem = 0;
+
+  String _text = "Home";
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedItem = index;
+      _text = menuItems[index]["title"];
+    });
+  }
+
+...
+
+          children: <Widget>[
+            Text(
+              'Kamu klik: $_text',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+...
+
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
+        unselectedItemColor: Colors.black87,
+        elevation: 32,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: const TextStyle(
+          height: 1.5,
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          height: 1.5,
+          fontSize: 12,
+        ),
+        items: menuItems
+            .map(
+              (item) => BottomNavigationBarItem(
+                icon: Icon(item["icon"]),
+                label: item["title"],
+                activeIcon: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(14)),
+                  ),
+                  child: Icon(item["icon"]),
+                ),
+              ),
+            )
+            .toList(),
+        currentIndex: _selectedItem,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
+      ),
+```
+
+Output:
+
+![Gambar 42. Widget BottomNavigationBar](img/42%20bottom%20navigation%20bar.png)
+
+Gambar 42. Widget BottomNavigationBar
+
+Baca Dokumentasi Resmi:
+
+- [BottomNavigationBar.](https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html)
+
 ## TabBar
+
+Widget ini menampilkan deretan tab horizontal. Biasanya dibuat sebagai bagian AppBar.bottom dari AppBar dan bersamaan dengan TabBarView.
+
+```
+tabs
+│───DefaultTabController()
+|   |───length
+|   │───child
+│───SingleTickerProviderStateMixin
+|   │───TabController()
+|   |   │───vsync
+|   |   │───length
+|   |   |───addListener()
+```
+
+Dibawah ini adalah sample code untuk membuat TabBar dengan TabBarView dibawahnya
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyTabBar extends StatefulWidget {
+  const MyTabBar({super.key});
+
+  @override
+  State<MyTabBar> createState() => _MyTabBarState();
+}
+
+class _MyTabBarState extends State<MyTabBar> with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Coding Flutter - TabBar"),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: const [
+            Tab(icon: Icon(Icons.directions_boat)),
+            Tab(icon: Icon(Icons.directions_bus)),
+            Tab(icon: Icon(Icons.directions_bike)),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          Center(child: Text("Tab 1")),
+          Center(child: Text("Tab 2")),
+          Center(child: Text("Tab 3")),
+        ],
+      ),
+    );
+  }
+}
+```
+
+Output:
+
+![Gambar 43. Widget TabBar](img/43%20tabbar.png)
+
+Gambar 43. Widget TabBar
+
+Baca Dokumentasi Resmi:
+
+- [TabBar.](https://api.flutter.dev/flutter/material/TabBar-class.html)
 
 ## Drawer
 
