@@ -350,3 +350,72 @@ Baca Dokumentasi Resmi:
 - [ListTile.](https://api.flutter.dev/flutter/material/ListTile-class.html)
 
 ## SliverAppBar
+
+Widget ini terintegrasi dengan `CustomScrollView`. Appbar terdiri dari toolbar dan kemungkinan widget lainnya, seperti TabBar dan FlexibleSpaceBar. appbar biasanya memaparkan satu atau beberapa tindakan umum dengan IconButtons yang secara opsional diikuti oleh PopupMenuButton untuk operasi yang kurang umum.
+
+`SliverAppBar` biasanya digunakan sebagai anak pertama dari `CustomScrollView`, yang memungkinkan appbar berintegrasi dengan tampilan scroll sehingga tingginya dapat bervariasi sesuai dengan offset atau melayang di atas konten lain dalam tampilan scroll. Untuk appbar dengan ketinggian tetap di bagian atas layar, lihatlah AppBar, yang menggunakan slot dari Scaffold.appBar.
+
+```
+SliverAppBar
+│───expandedHeight
+│───flexibleSpace
+|   │───FlexibleSpaceBar()
+│───pinned
+|   │───bool
+│───floating
+|   │───bool
+│───snap
+|   │───bool
+```
+
+Dibawah adalah contoh code penggunaan SliverAppBar yaitu widget CustomScrolView yang didalamnya berisi list sliver dan anak pertama adalah sliverappbar dimana dia punya properties pinned, snap, floating yang bernilai true atau false. Terdapat properties expanedheight juga untuk set tinggi dari sliverappbar, dan terdapat flexiblespace jika scroll terjadi. Lalu di ikuti oleh sliverlist bagian dari `CustomScrollView`.
+
+```dart
+...
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            pinned: true,
+            snap: true,
+            floating: true,
+            expandedHeight: 160,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                "UNISNU Jepara",
+                style: TextStyle(color: Colors.black),
+              ),
+              background: FlutterLogo(),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return Container(
+                color: index.isOdd ? Colors.white : Colors.blue[200],
+                height: 100,
+                child: Center(
+                  child: Text(
+                    "Item $index",
+                    textScaler: const TextScaler.linear(2),
+                  ),
+                ),
+              );
+            }, childCount: 20),
+          ),
+        ],
+      ),
+...
+```
+
+Output:
+
+![Gambar 45. Widget SliverAppBar](img/45%20sliverappbar.png)
+
+Gambar 45. Widget SliverAppBar
+
+Bila kita running hasilnya akan seperti diatas. Dimana pertama sliverappbar akan menempati bagiannya dan ketika kita scroll ke atas dia akan fleksible mengikuti scroll sampai tinggal setinggi appbar.
+
+Baca Dokumentasi Resmi:
+
+- [SliverAppBar.](https://api.flutter.dev/flutter/material/SliverAppBar-class.html)
+
+# [Materi Selanjutnya: Figma](figma.md)
