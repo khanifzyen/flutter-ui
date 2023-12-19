@@ -278,4 +278,75 @@ Baca Dokumentasi Resmi:
 
 ## Drawer
 
+Di app yang menggunakan Desain Material, ada dua opsi utama untuk navigasi: tab dan drawer. Jika tidak ada cukup ruang untuk mendukung tab, drawer memberikan alternatif yang praktis. Di Flutter, gunakan widget Drawer yang dikombinasikan dengan Scaffold untuk membuat tata letak dengan panel di samping Desain Material. Aturan ini menggunakan langkah-langkah berikut:
+
+- Buat scaffold.
+- Tambahkan drawer.
+- Isi drawer dengan item.
+- Tutup drawer secara terprogram.
+
+```
+drawer
+│───Drawer()
+|   │───child
+|   |   │───DrawerHeader()
+|   |   │───UserAccountDrawerHeader()
+```
+
+Dibawah ini adalah contoh code dalam penggunaan drawer, disini saya menggunakan `drawer` yang artinya nanti munculnya dari sebelah kiri. Berisikan `UserAccountDrawerHeader`, dan juga `ListTile`
+
+```dart
+...
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            Container(
+              color: Colors.blue[100],
+              child: UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                ),
+                accountName: const Text(
+                  'Khanif Zyen',
+                  style: TextStyle(color: Colors.black),
+                ),
+                accountEmail: const Text(
+                  "khanif.zyen@gmail.com",
+                  style: TextStyle(color: Colors.black),
+                ),
+                currentAccountPicture: const CircleAvatar(
+                  child: FlutterLogo(size: 50),
+                ),
+              ),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+...
+```
+
+Output:
+
+![Gambar 44. Widget Drawer](img/44%20drawer.png)
+
+Gambar 44. Widget Drawer
+
+Parameter `drawer` menerima kembalian berupa widget `Drawer`. Jika drawer diisi, maka parameter `leading` di widget `AppBar` bisa tidak usah diisi. Widget `Drawer` akan menampilkan menu icon hamburger, yang jika ditap maka akan menampilkan menu di samping, dan isinya sesuai dengan `ListView`, sehingga bisa discroll.
+
+Baca Dokumentasi Resmi:
+
+- [Drawer.](https://api.flutter.dev/flutter/material/Drawer-class.html)
+- [DrawerHeader.](https://api.flutter.dev/flutter/material/DrawerHeader-class.html)
+- [ListTile.](https://api.flutter.dev/flutter/material/ListTile-class.html)
+
 ## SliverAppBar

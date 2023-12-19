@@ -166,44 +166,6 @@ Baca Dokumentasi Resmi:
 
 - [FloatingActionButton.](https://api.flutter.dev/flutter/material/FloatingActionButton-class.html)
 
-### Scaffold > drawer
-
-```dart
-...
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
-...
-```
-
-Parameter `drawer` menerima kembalian berupa widget `Drawer`. Jika drawer diisi, maka parameter `leading` di widget `AppBar` bisa tidak usah diisi. Widget `Drawer` akan menampilkan menu icon hamburger, yang jika ditap maka akan menampilkan menu di samping, dan isinya sesuai dengan `ListView`, sehingga bisa discroll.
-
-Baca Dokumentasi Resmi:
-
-- [Drawer.](https://api.flutter.dev/flutter/material/Drawer-class.html)
-- [DrawerHeader.](https://api.flutter.dev/flutter/material/DrawerHeader-class.html)
-- [ListTile.](https://api.flutter.dev/flutter/material/ListTile-class.html)
-
 ## Scaffold > bottomNavigationBar
 
 Parameter `bottomNavigationbar` menerima kembalian berupa widget `BottomNavigationBar`, adalah widget yang digunakan dalam aplikasi Flutter untuk menyediakan navigasi di bagian bawah layar. Biasanya digunakan untuk berpindah antara beberapa tampilan atau layar utama dalam aplikasi.
