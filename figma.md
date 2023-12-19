@@ -75,4 +75,23 @@ Gambar 50. Hasil export assets image dan icon dari figma
 
 ## Pembuatan Fitur Home
 
-Fitur Home terdiri dari satu halaman yaitu HomePage()
+Fitur Home terdiri dari satu halaman yaitu ```HomePage()```, kemudian dipecah-pecah menjadi beberapa widget diantaranya:
+
+- ```app_bar_home.dart```: widget untuk menampilkan title dan actions pada AppBar bagian atas
+- ```category_home.dart```: widget untuk menampilkan daftar kategori dalam bentuk ListView yang discroll secara horizontal
+- ```recommended_furniture_home.dart```: widget untuk menampilkan daftar item furniture dalam bentuk GridView
+- ```bottom_navigation_bar_home.dart```: widget untuk menampilkan BottomNavigationBar dengan custom activeIcon
+
+### Kerangka untuk home_page.dart
+
+Sebelum anda membuat halaman ```HomePage()```, anda perlu menambahkan dua library pada ```pubspec.yaml``` yaitu:
+
+- ```flutter_svg```: library untuk dapat menggunakan file svg sebagai asset
+- ```google_fonts```: library untuk dapat menggunakan font public di repository google font
+  
+Halaman ```HomePage()``` nanti terdiri dari ```Column```, dimana nanti memiliki children beberapa widget, maka isinya adalah sebagai berikut
+
+```lib/features/home/pages/home_page.dart```
+```dart
+
+```
