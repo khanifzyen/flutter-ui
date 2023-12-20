@@ -1,5 +1,20 @@
 # Figma
 
+[Kembali](navigator.md)
+
+Daftar Isi:
+
+1. [Feature first architecture](#feature-first-architecture)
+2. [Mengekspor Assets dari Figma](#mengekspor-assets-dari-figma)
+3. [Pembuatan Fitur Home](#pembuatan-fitur-home)
+   1. [Persiapan Library dan Asset](#persiapan-library-dan-asset)
+   2. [Pembuatan AppBar](#pembuatan-appbar)
+   3. [Pembuatan Headline](#pembuatan-headline)
+   4. [Pembuatan Daftar Category](#pembuatan-daftar-category)
+   5. [Pembuatan Recommended Furnitures](#pembuatan-recommended-furnitures)
+   6. [Pembuatan Bottom Navigation Bar](#pembuatan-bottom-navigation-bar)
+4. [Pembuatan Fitur Detail](#pembuatan-fitur-detail)
+
 Figma adalah tool desain berupa website dan tersedia versi desktop yang terhubung dengan cloud sehingga bisa digunakan kapanpun dan dimanapun melalui internet. Tool ini berbasis vector, sehingga akan lebih cocok untuk mendesain UI website atau mobile dan aset ilustrasi. Aplikasi ini sangat cocok untuk kolaborasi pengembangan aplikasi dimana UI/UX designer membuat design di figma lalu developer akan menulis kode berdasarkan UI/UX final yang sudah disepakati bersama dan membuatnya sesuai roles yang ada di figma
 
 Teman-teman tinggal register lalu login, didalamnya temen temen dapat mencari contoh design di figma community. Atau bisa juga meminta temen yg punya design figma untuk share urlnya, nanti otomatis dibisa lihat design dari temennya tersebut.
@@ -287,7 +302,7 @@ class CategoryItem extends StatelessWidget {
 }
 ```
 
-Kemudian untuk home_page.dart panggil CategoryHome()
+Kemudian pada `home_page.dart` memanggil `CategoryHome()`
 
 ```dart
 ...
@@ -304,3 +319,48 @@ Output:
 ![Gambar 53. Perbandingan daftar kategori](img/53%20perbandingan%20daftar%20kategori.PNG)
 
 Gambar 53. Perbandingan daftar kategori di Figma dengan kode di Flutter
+
+### Pembuatan Recommended Furnitures
+
+Yang pertama adalah subtitle `Recommended Furniture` yang berjarak 30 dari daftar kategori,menggunakan font Poppins, fontweight medium, fontsize 16, dan color menggunakan 4A4543. Disini akan kita pisah di widget baru dengan nama `recommended_furnitures_home.dart`.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class RecommendedFurnituresHome extends StatelessWidget {
+  const RecommendedFurnituresHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Text(
+          "Recommended Furnitures",
+          style: GoogleFonts.poppins(
+              textStyle: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            color: Color(0xFF4A4543),
+          )),
+        ),
+      ],
+    );
+  }
+}
+```
+
+Selanjutnya dibawahnya adalah GridView yang memuat 4 produk dimana masing-masing dibungkus dalam sebuah Card. Oh iya, untuk warna dasar aplikasi bukan putih tetapi berwarna F2F2F2, maka perlu diedit terlebih dahulu.
+
+`home_page.dart`
+
+```dart
+...
+      backgroundColor: const Color(0xFFF2F2F2),
+      body: const Padding(
+...
+```
+
+### Pembuatan Bottom Navigation Bar
+
+## Pembuatan Fitur Detail
