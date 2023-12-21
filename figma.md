@@ -604,3 +604,108 @@ Output:
 Gambar 55. Perbandingan BottomNavigationBar dari Figma dengan Flutter
 
 ## Pembuatan Fitur Detail
+
+Fitur Detail terdiri dari satu halaman yaitu `DetailPage()`, sebelum mulai coding hendaknya kita menyusun logika pembentukan halaman detail ini, contoh seperti berikut:
+
+- Scaffold, dengan body isi Stack, kemudian children berisi gambar utama besar, kemudan AppBar yg dibungkus dengan Positioned top 48
+- children berikutnya Container penuh (yg dibungkus dengan Positioned bottomcenter 0) topleft 0 dengan border radius topleft,topright 20, latar putih, dengan child Column, dengan children isi deskripsi produk dan lain-lain
+- dan seterusnya
+
+`detail_page.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:project_pertama/features/detail/widgets/app_bar_detail.dart';
+import 'package:project_pertama/features/detail/widgets/container_detail.dart';
+
+class DetailPage extends StatelessWidget {
+  const DetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Image.asset(
+              'assets/images/furniture/img_product_1.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+          Positioned(
+            top: 48,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: const AppBarDetail(),
+            ),
+          ),
+          const Positioned(
+            left: 0,
+            bottom: 0,
+            child: ContainerDetail(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+`app_bar_detail.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class AppBarDetail extends StatefulWidget {
+  const AppBarDetail({super.key});
+
+  @override
+  State<AppBarDetail> createState() => _AppBarDetailState();
+}
+
+class _AppBarDetailState extends State<AppBarDetail> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon: SvgPicture.asset("assets/icons/back.svg"),
+        ),
+        Text("Detail",
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFF4A4543),
+            )),
+        Row(
+          children: [
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: SvgPicture.asset(
+                  "assets/icons/love.svg",
+                ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset("assets/icons/share.svg"),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+```
