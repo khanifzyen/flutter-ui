@@ -322,19 +322,10 @@ Gambar 53. Perbandingan daftar kategori di Figma dengan kode di Flutter
 
 ### Pembuatan Recommended Furnitures
 
-Yang pertama adalah subtitle `Recommended Furniture` yang berjarak 30 dari daftar kategori,menggunakan font Poppins, fontweight medium, fontsize 16, dan color menggunakan 4A4543. Disini akan kita pisah di widget baru dengan nama `recommended_furnitures_home.dart`.
+Yang pertama adalah subjudul `Recommended Furniture` yang berjarak 30 dari daftar kategori,menggunakan font Poppins, fontweight medium, fontsize 16, dan color menggunakan 4A4543. Untuk subjudul ini tidak perlu dipisah, bisa digabung dengan `home_page.dart`.
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-class RecommendedFurnituresHome extends StatelessWidget {
-  const RecommendedFurnituresHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
+...
         Text(
           "Recommended Furnitures",
           style: GoogleFonts.poppins(
@@ -344,13 +335,12 @@ class RecommendedFurnituresHome extends StatelessWidget {
             color: Color(0xFF4A4543),
           )),
         ),
-      ],
-    );
-  }
-}
+...
 ```
 
-Selanjutnya dibawahnya adalah GridView yang memuat 4 produk dimana masing-masing dibungkus dalam sebuah Card. Oh iya, untuk warna dasar aplikasi bukan putih tetapi berwarna F2F2F2, maka perlu diedit terlebih dahulu.
+> **Catatan**: Nanti akan muncul banyak eror dikarenakan penggunaan keyword `const`diawal `Padding`, hapus saja dan beri `const` manual satu-satu pada list `children` di `Column`, karena penggunaan `GoogleFonts` tidak bisa dengan `const`
+
+Selanjutnya dibawahnya adalah `GridView` yang memuat 4 produk dimana masing-masing dibungkus dalam sebuah Card. Oh iya, untuk warna dasar aplikasi bukan putih tetapi berwarna F2F2F2, maka perlu diedit terlebih dahulu.
 
 `home_page.dart`
 
@@ -360,6 +350,172 @@ Selanjutnya dibawahnya adalah GridView yang memuat 4 produk dimana masing-masing
       body: const Padding(
 ...
 ```
+
+Untuk GridView disini akan kita pisah di widget baru dengan nama `recommended_furnitures_home.dart`.
+
+Sebelum mulai coding hendaknya kita menyusun logika pembentukan satu card di dalam GridView, contoh seperti berikut:
+
+- container penuh dengan border radius 20, latar putih
+- child Column dengan children yang pertama adalah Container yang memiliki border radius topleft dan topright 20 dengan DecorationImage diambil dari data list image furniture
+- karena ada tumpukan gambar, maka Container yang mengandung DecorationImage dibungkus dalam Stack sebagai children pertama, kemudian children kedua adalah Container yang mengandung child icon love yang dibungkus dengan Positioned
+- children berikutnya (dari Column) untuk memuat teks, dibungkus padding
+- di dalam padding terdapat child Column dengan children yang pertama adalah nama produk, dilanjut dengan sizebox, kemudian children kedua adalah row yang memuat harga dan icon bintang serta nilai bintang.
+- Untuk jarak harga dibungkus expanded karena akan memakan semua sisa, kemudian antara icon bintang dan nilai bintang diberi sizedbox
+
+Seiring meningkatnya skill kita, nanti logika penyusunan diatas akan masuk ke otak kita tanpa perlu menuliskan/mendeskripsikan seperti diatas.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class RecommendedFurnituresHome extends StatelessWidget {
+  RecommendedFurnituresHome({super.key});
+
+  final List<Map<String, dynamic>> _furnitures = [
+    {
+      'name': 'Stylish Chair',
+      'price': 170,
+      'star': 4.8,
+      'image': 'assets/images/furniture/img_product_2.png',
+    },
+    {
+      'name': 'Modern Table',
+      'price': 75,
+      'star': 4.9,
+      'image': 'assets/images/furniture/img_product_3.png',
+    },
+    {
+      'name': 'Wooden Console',
+      'price': 240,
+      'star': 4.7,
+      'image': 'assets/images/furniture/img_product_4.png',
+    },
+    {
+      'name': 'Brown Armchair',
+      'price': 210,
+      'star': 4.9,
+      'image': 'assets/images/furniture/img_product_5.png',
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: _furnitures.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.7,
+        mainAxisSpacing: 20,
+        crossAxisSpacing: 20,
+      ),
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage(_furnitures[index]['image']),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 10,
+                      child: Container(
+                        padding: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: SvgPicture.asset(
+                          'assets/icons/love.svg',
+                          width: 15,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _furnitures[index]['name'],
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: Color(0xFF4A4543),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '\$${_furnitures[index]['price']}',
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 20,
+                                color: Color(0xFF9A9390),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Icon(Icons.star,
+                            size: 15, color: Color(0xFFEEA427)),
+                        const SizedBox(width: 8),
+                        Text(
+                          '${_furnitures[index]['star']}',
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+```
+
+> **Catatan**: untuk mensimulasikan scroll, anda bisa mencopy data list furniture diatas, sehingga total ada 8 data
+
+Output:
+
+![Gambar 54. Perbandingan Recommended Furnitures dari Figma dengan Flutter](img/54%20perbandingan%20recommended%20furniture.PNG)
+
+Gambar 54. Perbandingan Recommended Furnitures dari Figma dengan Flutter
 
 ### Pembuatan Bottom Navigation Bar
 
