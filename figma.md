@@ -19,7 +19,7 @@ Daftar Isi:
    3. [Pembuatan Nama Produk Harga Detail](#pembuatan-nama-produk-harga-detail)
    4. [Pembuatan Select Color Detail](#pembuatan-select-color-detail)
    5. [Pembuatan Select Quantity Detail](#pembuatan-select-quantity-detail)
-   6.
+   6. [Pembuatan Tombol Add to Cart Detail](#pembuatan-tombol-add-to-cart-detail)
 
 Figma adalah tool desain berupa website dan tersedia versi desktop yang terhubung dengan cloud sehingga bisa digunakan kapanpun dan dimanapun melalui internet. Tool ini berbasis vector, sehingga akan lebih cocok untuk mendesain UI website atau mobile dan aset ilustrasi. Aplikasi ini sangat cocok untuk kolaborasi pengembangan aplikasi dimana UI/UX designer membuat design di figma lalu developer akan menulis kode berdasarkan UI/UX final yang sudah disepakati bersama dan membuatnya sesuai roles yang ada di figma
 
@@ -1059,3 +1059,12 @@ Hasil akhir untuk `DetailPage()`
 ![Gambar 56. Perbandingan Detail Page dari Figma dengan Flutter](img/56%20perbandingan%20detail%20page.PNG)
 
 Gambar 56. Perbandingan Detail Page dari Figma dengan Flutter
+
+> Tugas 1
+>
+> Buatlah project slicing desain figma ke flutter (2 sampai 3 halaman), dari beberapa pilihan berikut:
+>
+> - [Instagram App UI](<https://www.figma.com/file/lXCXhzF2P18TWhbsFIYUjM/Instagram-UI-Screens-(Community)?type=design&node-id=0-2&mode=design>)
+> - [Medical App UI](<https://www.figma.com/file/wXY32rVqx4g3OxJiXSqvDh/Medical-app-%7C-Improving-speech-%F0%9F%A9%BA-(Community)?type=design&node-id=0-1&mode=design&t=tchKLWzOd4m6l3Zn-0>)
+> - [Grocery App UI](<https://www.figma.com/file/xBWXLGr0qqKjmuL0ai5aLG/Grocery-App-UI-Kit---Community-(Community)?type=design&node-id=113-7674&mode=design&t=KTf62hw2f8fE0C1Y-0>)
+> - atau yang lainnya (search di figma community)
