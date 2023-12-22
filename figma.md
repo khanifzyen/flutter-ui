@@ -14,6 +14,12 @@ Daftar Isi:
    5. [Pembuatan Recommended Furnitures](#pembuatan-recommended-furnitures)
    6. [Pembuatan Bottom Navigation Bar](#pembuatan-bottom-navigation-bar)
 4. [Pembuatan Fitur Detail](#pembuatan-fitur-detail)
+   1. [Pembuatan AppBar Detail](#pembuatan-appbar-detail)
+   2. [Pembuatan Container Detail](#pembuatan-container-detail)
+   3. [Pembuatan Nama Produk Harga Detail](#pembuatan-nama-produk-harga-detail)
+   4. [Pembuatan Select Color Detail](#pembuatan-select-color-detail)
+   5. [Pembuatan Select Quantity Detail](#pembuatan-select-quantity-detail)
+   6.
 
 Figma adalah tool desain berupa website dan tersedia versi desktop yang terhubung dengan cloud sehingga bisa digunakan kapanpun dan dimanapun melalui internet. Tool ini berbasis vector, sehingga akan lebih cocok untuk mendesain UI website atau mobile dan aset ilustrasi. Aplikasi ini sangat cocok untuk kolaborasi pengembangan aplikasi dimana UI/UX designer membuat design di figma lalu developer akan menulis kode berdasarkan UI/UX final yang sudah disepakati bersama dan membuatnya sesuai roles yang ada di figma
 
@@ -61,9 +67,10 @@ Pada project figma Furniture Shop ini, terdiri dari dua halaman, yaitu Home dan 
       - detail_page.dart
     - widgets
       - app_bar_detail.dart
-      - title_price_star_detail.dart
-      - color_picker_detail.dart
-      - quantity_detail.dart
+      - container_detail.dart
+      - nama_produk_harga_detail.dart
+      - select_color_detail.dart
+      - select_quantity_detail.dart
       - add_to_cart_detail.dart
 
 Ini adalah rancangan awal, dengan membreakdown widget menjadi bagian yang lebih kecil. Seiring berjalannya waktu, widget-widget diatas bisa bertambah atau berkurang.
@@ -608,7 +615,7 @@ Gambar 55. Perbandingan BottomNavigationBar dari Figma dengan Flutter
 Fitur Detail terdiri dari satu halaman yaitu `DetailPage()`, sebelum mulai coding hendaknya kita menyusun logika pembentukan halaman detail ini, contoh seperti berikut:
 
 - Scaffold, dengan body isi Stack, kemudian children berisi gambar utama besar, kemudan AppBar yg dibungkus dengan Positioned top 48
-- children berikutnya Container penuh (yg dibungkus dengan Positioned bottomcenter 0) topleft 0 dengan border radius topleft,topright 20, latar putih, dengan child Column, dengan children isi deskripsi produk dan lain-lain
+- children berikutnya ContainerDetail penuh (yg dibungkus dengan Positioned bottomcenter 0) topleft 0 dengan border radius topleft,topright 20, latar putih, dengan child Column, dengan children isi deskripsi produk dan lain-lain
 - dan seterusnya
 
 `detail_page.dart`
@@ -652,6 +659,16 @@ class DetailPage extends StatelessWidget {
   }
 }
 ```
+
+### Pembuatan AppBar Detail
+
+Untuk AppBar detail ada yang spesial disini, hanya sebuah Row dengan 3 buah children yaitu:
+
+1. memuat icon button back
+2. memuat Text Detail
+3. memuat Row dengan 2 buah children, untuk menampung icon love dan icon share
+
+Ketiga children disusun dengan `mainAxisAlignment.spaceBetween`. Kode lengkapnya adalah sebagai berikut:
 
 `app_bar_detail.dart`
 
@@ -709,3 +726,336 @@ class _AppBarDetailState extends State<AppBarDetail> {
   }
 }
 ```
+
+### Pembuatan Container Detail
+
+Container detail memuat seluruh informasi barang yang dijual selain gambar, karena gambar barang sudah muncul di `detail_page.dart` sebelumnya.
+
+`container_detail.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_pertama/features/detail/widgets/add_to_cart_detail.dart';
+import 'package:project_pertama/features/detail/widgets/nama_produk_harga_detail.dart';
+import 'package:project_pertama/features/detail/widgets/select_color_detail.dart';
+import 'package:project_pertama/features/detail/widgets/select_quantity_detail.dart';
+
+class ContainerDetail extends StatefulWidget {
+  const ContainerDetail({super.key});
+
+  @override
+  State<ContainerDetail> createState() => _ContainerDetailState();
+}
+
+class _ContainerDetailState extends State<ContainerDetail> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 381,
+      width: MediaQuery.of(context).size.width,
+      decoration: const BoxDecoration(
+        color: Color(0xFFFFFFFF),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
+        ),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          //pembuatan garis strip kecil ditengah
+          Container(
+            width: 36,
+            height: 5,
+            color: const Color(0xFFD8D8D8),
+          ),
+          const SizedBox(height: 15),
+          //pembuatan nama produk, harga, dan icon bintang, select color, select quantity dan deskripsi produk dibungkus dalam Padding
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //pembuatan nama produk dan harga
+                const NamaProdukHargaDetail(),
+                const SizedBox(height: 9),
+                //pembuatan icon bintang
+                SvgPicture.asset("assets/icons/Score.svg"),
+                const SizedBox(height: 21),
+                //pembuatan select color
+                const SelectColorDetail(),
+                const SizedBox(height: 19),
+                //pembuatan select quantity
+                const SelectQuantityDetail(),
+                const SizedBox(height: 32),
+                SizedBox(
+                  height: 60,
+                  child: Text(
+                    "Curabitur commodo turpis id placerat mattis. Mauris euismod arcu id orci fringilla sodales. Proin congue eleifend ipsum, eleifend porttitor mi ullamcorper.",
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFFADADAD),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                //pembuatan tombol add to cart
+                const AddToCartDetail(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+### Pembuatan Nama Produk Harga Detail
+
+`nama_produk_harga_detail.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class NamaProdukHargaDetail extends StatelessWidget {
+  const NamaProdukHargaDetail({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "Wooden Coff",
+          style: GoogleFonts.poppins(
+            fontSize: 26,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF4A4543),
+          ),
+        ),
+        Text(
+          "\$240",
+          style: GoogleFonts.poppins(
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+            color: const Color(0xFF9A9390),
+          ),
+        ),
+      ],
+    );
+  }
+}
+```
+
+### Pembuatan Select Color Detail
+
+`select_color_detail.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class SelectColorDetail extends StatefulWidget {
+  const SelectColorDetail({super.key});
+
+  @override
+  State<SelectColorDetail> createState() => _SelectColorDetailState();
+}
+
+class _SelectColorDetailState extends State<SelectColorDetail> {
+  final List<Color> _colors = [
+    const Color(0xFF9A9390),
+    const Color(0xFFEEA427),
+    const Color(0xFFE3E3E3),
+    const Color(0xFF80450A),
+  ];
+
+  int _selectedColor = 0;
+
+  void onTapColor(int index) {
+    setState(() {
+      _selectedColor = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Choose a color",
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF7A8D9C),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: _colors.asMap().entries.map((entry) {
+            int index = entry.key;
+            Color color = entry.value;
+
+            return Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: InkWell(
+                onTap: () => onTapColor(index),
+                child: _selectedColor == index
+                    ? CircleAvatar(
+                        radius: 14,
+                        backgroundColor: color,
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            radius: 10,
+                            backgroundColor: color,
+                          ),
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: 10,
+                        backgroundColor: color,
+                      ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+```
+
+### Pembuatan Select Quantity Detail
+
+`select_quantity_detail.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class SelectQuantityDetail extends StatefulWidget {
+  const SelectQuantityDetail({super.key});
+
+  @override
+  State<SelectQuantityDetail> createState() => _SelectQuantityDetailState();
+}
+
+class _SelectQuantityDetailState extends State<SelectQuantityDetail> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Select Quantity",
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF7A8D9C),
+          ),
+        ),
+        Row(
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0xFFEAEBEC),
+                ),
+                color: const Color(0xFFFCFCFC),
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(18),
+                    topLeft: Radius.circular(18)),
+              ),
+              child: SvgPicture.asset("assets/icons/substract.svg"),
+            ),
+            Container(
+              width: 40,
+              height: 32,
+              color: const Color(0xFFE3E3E3),
+              child: Center(
+                child: Text("2",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF4A4543),
+                    )),
+              ),
+            ),
+            Container(
+              width: 32,
+              height: 32,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0xFFEAEBEC),
+                ),
+                color: const Color(0xFFFCFCFC),
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(18),
+                    bottomRight: Radius.circular(18)),
+              ),
+              child: SvgPicture.asset("assets/icons/add.svg"),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+```
+
+### Pembuatan Tombol Add To Cart Detail
+
+`add_to_cart_detail.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class AddToCartDetail extends StatelessWidget {
+  const AddToCartDetail({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF9A9390),
+        ),
+        onPressed: () {},
+        child: Text(
+          "ADD TO CART",
+          style: GoogleFonts.poppins(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFFFFFFFF),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+Hasil akhir untuk `DetailPage()`
+
+![Gambar 56. Perbandingan Detail Page dari Figma dengan Flutter](img/56%20perbandingan%20detail%20page.PNG)
+
+Gambar 56. Perbandingan Detail Page dari Figma dengan Flutter
